@@ -194,7 +194,7 @@ export default function Gallery() {
           <div className="mb-8 flex items-end justify-between px-5 lg:px-10">
             <div>
               <p className="hud-chip mb-3 text-neon">
-                <span className="text-dim">SECTION</span> 05 — THE GALLERY
+                <span className="text-dim">SECTION</span> 06 — THE GALLERY
               </p>
               <h2 className="font-display text-3xl font-black leading-tight text-ice md:text-5xl">
                 KEEP <span className="text-neon text-glow">SCROLLING</span>

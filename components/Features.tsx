@@ -1,8 +1,11 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import type * as React from "react";
+import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
 import Reveal from "@/components/Reveal";
+import FutureCarScene from "@/components/FutureCarScene";
+import { getLenis } from "@/components/SmoothScroll";
 
 type Feature = {
   icon: React.ReactNode;
@@ -136,53 +139,253 @@ function FeatureCard({ feature }: { feature: Feature }) {
 }
 
 export default function Features() {
-  return (
-    <section id="features" className="relative overflow-hidden py-24 md:py-32">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="grid-flat absolute inset-y-0 right-0 w-1/3 opacity-40" />
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "radial-gradient(50% 40% at 80% 20%, rgba(31,120,255,0.07), transparent 70%)",
-          }}
-        />
-      </div>
+  const root = useRef<HTMLElement>(null);
+  const wrapRef = useRef<HTMLDivElement>(null);
+  const slides = useRef<Array<HTMLDivElement | null>>([]);
+  const stepRef = useRef<HTMLSpanElement>(null);
+  const progRef = useRef({ p: 0 });
+  const uiCleanup = useRef<() => void>(() => {});
+  const [red, setRed] = useState(false);
 
-      <div className="relative mx-auto max-w-[1440px] px-5 lg:px-10">
-        <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
-          <Reveal>
-            <p className="hud-chip mb-4 text-neon">
-              <span className="text-dim">SECTION</span> 03 — ENGINEERING
-            </p>
-            <h2 className="font-display text-3xl font-black leading-tight text-ice md:text-5xl">
-              ENGINEERED FOR
-              <br />
-              <span className="text-neon text-glow">TOMORROW&apos;S</span> ROADS
-            </h2>
-          </Reveal>
-          <Reveal delay={0.15} className="max-w-sm">
-            <div className="flex flex-wrap gap-2">
-              {["800V", "L4", "AWD", "SOLID-STATE"].map((tag) => (
-                <span
-                  key={tag}
-                  className="hud-chip border border-neon/25 bg-void/50 px-3 py-1.5 text-neon"
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          </Reveal>
+  useEffect(() => {
+    return () => uiCleanup.current();
+  }, []);
+
+  useEffect(() => {
+    setRed(window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+  }, []);
+
+  useEffect(() => {
+    const el = wrapRef.current;
+    if (!el) return;
+    const top = Math.floor(el.getBoundingClientRect().top + window.scrollY);
+    const cur = window.scrollY;
+    const height = el.getBoundingClientRect().height;
+    if (cur > top + 4 && cur < top + height - 4) {
+      window.scrollTo(0, top);
+    }
+  }, []);
+
+  useGSAP(
+    () => {
+      if (red) return;
+
+      const tl = gsap.timeline({
+        defaults: { ease: "power3.out" },
+        scrollTrigger: {
+          trigger: wrapRef.current,
+          start: "top top",
+          end: "bottom bottom",
+          scrub: 1,
+          onUpdate: (self) => {
+            progRef.current.p = self.progress;
+            const el = stepRef.current;
+            if (!el) return;
+            const stage = Math.min(6, Math.max(0, Math.round(self.progress * 6)));
+            const label = stage === 0 ? "INTRO" : `0${stage} / 06`;
+            if (el.textContent !== label) el.textContent = label;
+          },
+        },
+      });
+      tl.totalDuration(1);
+
+      const wrap = wrapRef.current;
+      if (!wrap) return;
+      const sectionH = wrap.scrollHeight;
+      const viewH = window.innerHeight;
+      const travel = sectionH - viewH;
+      let latching = false;
+      const latch = () => {
+        const scroller = getLenis();
+        if (!scroller || latching || red) return;
+        const st = tl.scrollTrigger;
+        if (!st) return;
+        const vec = (ScrollTrigger as unknown as { getVelocity: () => number }).getVelocity();
+        if (Math.abs(vec) > 35) return;
+        const p = st.progress;
+        const nearest = Math.round(p * 6) / 6;
+        if (Math.abs(p - nearest) > 0.05) return;
+        const top = wrap.offsetTop;
+        latching = true;
+        scroller.scrollTo(top + nearest * travel, {
+          duration: 0.8,
+          easing: (t: number) => 1 - Math.pow(1 - t, 3),
+          onComplete: () => {
+            latching = false;
+          },
+        });
+      };
+      const debounceRef = { timer: 0 as number };
+      const onScrollEnd = () => {
+        window.clearTimeout(debounceRef.timer);
+        debounceRef.timer = window.setTimeout(latch, 600);
+      };
+      window.addEventListener("wheel", onScrollEnd);
+      window.addEventListener("touchmove", onScrollEnd);
+      uiCleanup.current = () => {
+        window.removeEventListener("wheel", onScrollEnd);
+        window.removeEventListener("touchmove", onScrollEnd);
+        window.clearTimeout(debounceRef.timer);
+      };
+
+      tl.fromTo(".fe-head", { y: 40, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.03 }, 0)
+        .fromTo(".fe-tags", { y: 20, autoAlpha: 0 }, { y: 0, autoAlpha: 1, duration: 0.02 }, 0.02)
+        .to(".fe-head, .fe-tags", { autoAlpha: 0, y: -40, duration: 0.03, ease: "power2.in" }, 0.07);
+
+      FEATURES.forEach((_, i) => {
+        const slide = slides.current[i];
+        if (!slide) return;
+        const at = (i + 1) / 6;
+        tl.fromTo(
+          slide,
+          { x: 170, autoAlpha: 0, rotationZ: 1.5 },
+          { x: 0, autoAlpha: 1, rotationZ: 0, duration: 0.05, ease: "power3.out" },
+          at - 0.05
+        );
+        if (i < FEATURES.length - 1) {
+          tl.to(
+            slide,
+            { x: -170, autoAlpha: 0, rotationZ: -1.5, duration: 0.05, ease: "power2.in" },
+            at + 0.05
+          );
+        }
+      });
+
+      tl.to(".fe-credits", { autoAlpha: 1, duration: 0.06 }, 0.94)
+        .to(".fe-exit", { autoAlpha: 0.6, duration: 0.14, ease: "power1.inOut" }, 0.955);
+    },
+    { scope: root, dependencies: [red] }
+  );
+
+  if (red) {
+    return (
+      <section id="features" className="relative overflow-hidden py-24 md:py-32">
+        <div className="pointer-events-none absolute inset-0">
+          <div className="grid-flat absolute inset-y-0 right-0 w-1/3 opacity-40" />
+          <div
+            className="absolute inset-0"
+            style={{
+              background:
+                "radial-gradient(50% 40% at 80% 20%, rgba(31,120,255,0.07), transparent 70%)",
+            }}
+          />
         </div>
 
-        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-          {FEATURES.map((feature, i) => (
-            <Reveal key={feature.no} delay={(i % 3) * 0.1} y={60}>
-              <FeatureCard feature={feature} />
+        <div className="relative mx-auto max-w-[1440px] px-5 lg:px-10">
+          <div className="mb-16 flex flex-col justify-between gap-6 md:flex-row md:items-end">
+            <Reveal>
+              <p className="hud-chip mb-4 text-neon">
+                <span className="text-dim">SECTION</span> 03 — ENGINEERING
+              </p>
+              <h2 className="font-display text-3xl font-black leading-tight text-ice md:text-5xl">
+                ENGINEERED FOR
+                <br />
+                <span className="text-neon text-glow">TOMORROW&apos;S</span> ROADS
+              </h2>
             </Reveal>
-          ))}
+            <Reveal delay={0.15} className="max-w-sm">
+              <div className="flex flex-wrap gap-2">
+                {["800V", "L4", "AWD", "SOLID-STATE"].map((tag) => (
+                  <span
+                    key={tag}
+                    className="hud-chip border border-neon/25 bg-void/50 px-3 py-1.5 text-neon"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </Reveal>
+          </div>
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {FEATURES.map((feature, i) => (
+              <Reveal key={feature.no} delay={(i % 3) * 0.1} y={60}>
+                <FeatureCard feature={feature} />
+              </Reveal>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    );
+  }
+
+  return (
+    <div ref={wrapRef} id="features" className="relative h-[700svh] bg-[#04060d]">
+      <section ref={root} className="sticky top-0 h-[100svh] overflow-hidden">
+        <FutureCarScene progressRef={progRef} />
+
+        <div className="pointer-events-none absolute inset-0 z-[5] bg-[radial-gradient(90%_70%_at_50%_30%,transparent_50%,rgba(4,6,13,0.4)_100%)]" />
+
+        <div className="pointer-events-none absolute inset-x-0 top-[7vh] z-10 px-6 text-center mix-blend-difference">
+          <div className="fe-head">
+            <p className="hud-chip mb-3 text-white/80">
+              <span className="text-white/50">SECTION</span> 03 — ENGINEERING
+            </p>
+            <h2 className="font-display text-2xl font-black leading-tight text-white md:text-4xl">
+              ENGINEERED FOR <span className="text-white">TOMORROW&apos;S</span> ROADS
+            </h2>
+          </div>
+          <div className="fe-tags mt-4 flex flex-wrap items-center justify-center gap-2">
+            {["800V", "L4", "AWD", "SOLID-STATE"].map((tag) => (
+              <span
+                key={tag}
+                className="hud-chip border border-white/30 bg-white/10 px-3 py-1 text-white/90"
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <div className="fe-scrim pointer-events-none absolute inset-y-0 right-0 z-[15] w-[46vw] max-w-[36rem] bg-[radial-gradient(130%_70%_at_100%_50%,rgba(5,7,15,0.5),transparent_78%)] backdrop-blur-[3px]" />
+
+        {FEATURES.map((feature, i) => (
+          <div key={feature.no} className="pointer-events-none absolute inset-0 z-20">
+            <div className="flex h-full items-center justify-end px-6 md:px-[7vw]">
+              <div
+                ref={(el) => {
+                  slides.current[i] = el;
+                }}
+                className="fe-slide w-full max-w-[26rem] mix-blend-difference"
+              >
+                <div className="border-l-2 border-white/70 pl-6 md:pl-8">
+                  <div className="mb-5 flex items-center gap-4 md:gap-5">
+                    <span className="font-display text-6xl font-black leading-none text-transparent [-webkit-text-stroke:1px_rgba(255,255,255,0.6)] md:text-7xl">
+                      {feature.no}
+                    </span>
+                    <div className="h-12 w-px bg-white/40" />
+                    <div className="min-w-0">
+                      <h3 className="font-display text-sm font-black tracking-[0.14em] text-white md:text-base">
+                        {feature.title}
+                      </h3>
+                      <div className="mt-2 h-8 w-8 text-white/90">{feature.icon}</div>
+                    </div>
+                  </div>
+                  <p className="font-light leading-relaxed text-white/85 md:text-[15px]">
+                    {feature.desc}
+                  </p>
+                  <div className="mt-6 flex items-center gap-3">
+                    <span className="h-1 w-1 rotate-45 bg-white shadow-[0_0_8px_rgba(255,255,255,0.9)]" />
+                    <span className="hud-chip text-white/90">{feature.meta}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
+
+        <div className="pointer-events-none absolute inset-x-0 top-4 z-20 flex justify-end px-6 mix-blend-difference md:px-[7vw]">
+          <span className="hud-chip border border-white/30 bg-white/10 text-white/90">
+            <span className="text-white/50">STEP</span> <span ref={stepRef}>INTRO</span>
+          </span>
+        </div>
+
+        <p className="fe-credits pointer-events-none absolute bottom-4 left-5 z-10 font-display text-[9px] tracking-[0.18em] text-white/70 opacity-0 mix-blend-difference">
+          CHEVROLET C8 FICTIVE · 3D MODEL · CC-BY
+        </p>
+
+        <div className="fe-exit pointer-events-none absolute inset-0 z-30 bg-[#05070f] opacity-0" />
+      </section>
+    </div>
   );
 }

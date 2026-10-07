@@ -40,6 +40,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${orbitron.variable} ${rajdhani.variable} antialiased`}
     >
+      <head>
+        <link rel="preload" as="image" href="/media/frames/heroV2_frames/0000.jpg" fetchPriority="high" />
+        <link rel="preload" as="image" href="/media/frames/heroV2_frames/0001.jpg" />
+        <link rel="preload" as="image" href="/media/frames/heroV2_frames/0002.jpg" />
+        <link rel="preload" as="image" href="/media/frames/heroV2_frames/0003.jpg" />
+      </head>
       <body className="min-h-full bg-void text-ice font-body">
         <SmoothScroll />
         <CursorGlow />

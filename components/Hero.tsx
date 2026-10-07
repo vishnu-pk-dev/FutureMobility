@@ -5,6 +5,7 @@ import Link from "next/link";
 import { gsap, useGSAP } from "@/lib/gsap";
 import CarSilhouette from "@/components/CarSilhouette";
 import { frameSrc, HERO_FRAMES } from "@/lib/media";
+import { cachedFrame, startFrameWarmup, warmDecodeNear } from "@/lib/frameCache";
 
 const FRAME_LAST = HERO_FRAMES.count - 1;
 const FRAME_CLASS =
@@ -19,11 +20,10 @@ export default function Hero() {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    for (let i = 0; i < HERO_FRAMES.count; i++) {
-      const im = new Image();
-      im.src = frameSrc(i);
-    }
-    if (layerA.current) layerA.current.src = frameSrc(0);
+    const im = new Image();
+    im.src = frameSrc(0);
+    layerA.current!.src = frameSrc(0);
+    startFrameWarmup();
   }, []);
 
   useEffect(() => {
@@ -135,7 +135,11 @@ export default function Hero() {
           }
         };
 
-        if (to.src === frameSrc(i) && to.naturalWidth > 0) {
+        warmDecodeNear(i);
+
+        const cached = cachedFrame(i);
+        if (cached && cached.complete && cached.naturalWidth > 0) {
+          to.src = cached.src;
           apply();
           return;
         }
@@ -206,6 +210,7 @@ export default function Hero() {
           alt=""
           aria-hidden
           decoding="async"
+          fetchPriority="high"
           className={`${FRAME_CLASS} opacity-100`}
         />
         {/* eslint-disable-next-line @next/next/no-img-element */}
