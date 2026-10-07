@@ -17,7 +17,7 @@ function ArtFallback({ index, hint }: { index: number; hint: string }) {
         style={{
           background: `radial-gradient(60% 60% at ${60 + index * 6}% ${
             30 + index * 8
-          }%, rgba(0,229,255,${0.05 + index * 0.012}), transparent 70%)`,
+          }%, rgba(31,120,255,${0.05 + index * 0.012}), transparent 70%)`,
         }}
       />
       {index === 0 ? (

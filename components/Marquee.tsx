@@ -58,7 +58,7 @@ export default function Marquee() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(80% 120% at 50% 50%, rgba(0,229,255,0.05), transparent 70%)",
+            "radial-gradient(80% 120% at 50% 50%, rgba(31,120,255,0.05), transparent 70%)",
         }}
       />
       <div className="relative space-y-4">

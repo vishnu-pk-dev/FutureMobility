@@ -61,7 +61,7 @@ export default function ExplodedView() {
         '[data-row="chassis"]'
       );
       if (chassisRow) {
-        tl.set(chassisRow, { autoAlpha: 1, color: "#00e5ff" }, 0);
+        tl.set(chassisRow, { autoAlpha: 1, color: "#1f78ff" }, 0);
       }
 
       PARTS.forEach((p) => {
@@ -82,8 +82,8 @@ export default function ExplodedView() {
         if (row) {
           tl.fromTo(
             row,
-            { autoAlpha: 0.35, color: "#55707f" },
-            { autoAlpha: 1, color: "#00e5ff", duration: 0.05 },
+            { autoAlpha: 0.35, color: "#64748b" },
+            { autoAlpha: 1, color: "#1f78ff", duration: 0.05 },
             p.px
           );
         }
@@ -135,7 +135,7 @@ export default function ExplodedView() {
             className="pointer-events-none absolute inset-0"
             style={{
               background:
-                "radial-gradient(70% 60% at 50% 60%, rgba(0,229,255,0.07), transparent 70%)",
+                "radial-gradient(70% 60% at 50% 60%, rgba(31,120,255,0.07), transparent 70%)",
             }}
           />
 
@@ -153,14 +153,14 @@ export default function ExplodedView() {
                       dx="0"
                       dy="0"
                       stdDeviation="4"
-                      floodColor="#00e5ff"
+                      floodColor="#1f78ff"
                       floodOpacity="0.55"
                     />
                   </filter>
                 </defs>
 
                 {/* camera / scan frame */}
-                <g className="exp-frame" stroke="#0f3550" strokeWidth="1">
+                <g className="exp-frame" stroke="#a9c2e4" strokeWidth="1">
                   <path d="M 18 24 H 60 M 18 24 V 66" />
                   <path d="M 940 24 H 982 M 982 24 V 66" />
                   <path d="M 18 430 H 60 M 18 430 V 388" />
@@ -170,7 +170,7 @@ export default function ExplodedView() {
                   x="30"
                   y="40"
                   className="hud-chip"
-                  fill="#2d6b7d"
+                  fill="#5c8fd0"
                   stroke="none"
                 >
                   #EXP-014
@@ -179,7 +179,7 @@ export default function ExplodedView() {
                   x="748"
                   y="40"
                   className="hud-chip"
-                  fill="#2d6b7d"
+                  fill="#5c8fd0"
                   stroke="none"
                 >
                   AXION-X // CUTAWAY
@@ -191,7 +191,7 @@ export default function ExplodedView() {
                   y1="382"
                   x2="960"
                   y2="382"
-                  stroke="#0f3550"
+                  stroke="#a9c2e4"
                   strokeWidth="1"
                   strokeDasharray="6 6"
                 />
@@ -277,18 +277,18 @@ export default function ExplodedView() {
                   <path
                     d="M 96 312 L 100 296 L 128 266 L 176 240 L 250 224 L 320 178 L 420 152 L 596 152 L 646 210 L 748 252 L 768 274 L 772 296 L 762 306 L 780 306 A 60 60 0 0 0 660 306 L 360 306 A 60 60 0 0 0 240 306 L 110 306 Z"
                     {...STROKE}
-                    fill="rgba(0,229,255,0.04)"
+                    fill="rgba(31,120,255,0.04)"
                     strokeLinejoin="round"
                   />
                   <path
                     d="M 176 244 L 748 258"
                     {...STROKE}
-                    stroke="#7df9ff"
+                    stroke="#9cc9ff"
                     strokeWidth="1.5"
                   />
                 </g>
 
-                <g data-part="glass" fill="rgba(0,229,255,0.06)">
+                <g data-part="glass" fill="rgba(31,120,255,0.06)">
                   <path
                     d="M 430 158 L 584 158 L 634 206 L 570 218 L 470 216 L 392 206 Z"
                     {...STROKE}
@@ -312,7 +312,7 @@ export default function ExplodedView() {
                   <path
                     d="M 762 226 L 786 240"
                     {...STROKE}
-                    stroke="#7df9ff"
+                    stroke="#9cc9ff"
                     strokeWidth="1.5"
                   />
                   <circle cx="742" cy="246" r="7" {...STROKE} strokeWidth="1" />
@@ -320,50 +320,50 @@ export default function ExplodedView() {
 
                 {/* ---------- CHIPS (labels + leaders) ---------- */}
                 <g className="opacity-0" data-chip="spoiler">
-                  <path d="M 122 222 L 96 46" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="18" y="42" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 122 222 L 96 46" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="18" y="42" className="hud-chip" fill="#1f78ff" stroke="none">
                     ADAPTIVE SPOILER
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="glass">
-                  <path d="M 500 160 L 320 46" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="240" y="42" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 500 160 L 320 46" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="240" y="42" className="hud-chip" fill="#1f78ff" stroke="none">
                     ZERO-G CANOPY
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="shell">
-                  <path d="M 480 196 L 466 68" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="352" y="64" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 480 196 L 466 68" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="352" y="64" className="hud-chip" fill="#1f78ff" stroke="none">
                     MONO-SHELL
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="sensor">
-                  <path d="M 826 230 L 908 56" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="852" y="44" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 826 230 L 908 56" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="852" y="44" className="hud-chip" fill="#1f78ff" stroke="none">
                     NEURAL CORE
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="diffuser">
-                  <path d="M 132 392 L 104 444" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="48" y="452" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 132 392 L 104 444" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="48" y="452" className="hud-chip" fill="#1f78ff" stroke="none">
                     ACTIVE DIFFUSER
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="battery">
-                  <path d="M 500 396 L 470 438" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="330" y="452" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 500 396 L 470 438" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="330" y="452" className="hud-chip" fill="#1f78ff" stroke="none">
                     SOLID-STATE PACK
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="wheel-r">
-                  <path d="M 116 385 L 52 440" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="20" y="466" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 116 385 L 52 440" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="20" y="466" className="hud-chip" fill="#1f78ff" stroke="none">
                     CRYO WHEEL · REAR
                   </text>
                 </g>
                 <g className="opacity-0" data-chip="wheel-f">
-                  <path d="M 884 385 L 912 432" stroke="#2d6b7d" strokeWidth="1" strokeDasharray="3 4" />
-                  <text x="816" y="452" className="hud-chip" fill="#00e5ff" stroke="none">
+                  <path d="M 884 385 L 912 432" stroke="#5c8fd0" strokeWidth="1" strokeDasharray="3 4" />
+                  <text x="816" y="452" className="hud-chip" fill="#1f78ff" stroke="none">
                     CRYO WHEEL · FRONT
                   </text>
                 </g>

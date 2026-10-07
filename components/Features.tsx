@@ -114,7 +114,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
         className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
         style={{
           background:
-            "radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(0,229,255,0.12), transparent 72%)",
+            "radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(31,120,255,0.12), transparent 72%)",
         }}
       />
       <span className="absolute right-6 top-5 font-display text-sm font-black text-neon/25 transition-colors duration-500 group-hover:text-neon/70">
@@ -128,7 +128,7 @@ function FeatureCard({ feature }: { feature: Feature }) {
       </h3>
       <p className="mt-3 font-light leading-relaxed text-mist">{feature.desc}</p>
       <div className="mt-7 flex items-center gap-3 border-t border-line pt-4">
-        <span className="h-1 w-1 rotate-45 bg-neon shadow-[0_0_8px_rgba(0,229,255,0.9)]" />
+        <span className="h-1 w-1 rotate-45 bg-neon shadow-[0_0_8px_rgba(31,120,255,0.9)]" />
         <span className="hud-chip text-neon/80">{feature.meta}</span>
       </div>
     </article>
@@ -144,7 +144,7 @@ export default function Features() {
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(50% 40% at 80% 20%, rgba(0,229,255,0.07), transparent 70%)",
+              "radial-gradient(50% 40% at 80% 20%, rgba(31,120,255,0.07), transparent 70%)",
           }}
         />
       </div>

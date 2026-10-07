@@ -68,7 +68,7 @@ export default function Stats() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 45% at 50% 0%, rgba(0,229,255,0.08), transparent 70%)",
+            "radial-gradient(60% 45% at 50% 0%, rgba(31,120,255,0.08), transparent 70%)",
         }}
       />
 
@@ -116,7 +116,7 @@ export default function Stats() {
                 {stat.label}
               </p>
               <div className="mt-6 h-[2px] w-full overflow-hidden bg-line">
-                <div className="stat-bar h-full w-full origin-left bg-gradient-to-r from-neon to-neon2 shadow-[0_0_12px_rgba(0,229,255,0.7)]" />
+                <div className="stat-bar h-full w-full origin-left bg-gradient-to-r from-neon to-neon2 shadow-[0_0_12px_rgba(31,120,255,0.7)]" />
               </div>
             </Reveal>
           ))}

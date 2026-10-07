@@ -40,7 +40,7 @@ export default function Pricing() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(60% 50% at 50% 30%, rgba(0,229,255,0.08), transparent 70%)",
+            "radial-gradient(60% 50% at 50% 30%, rgba(31,120,255,0.08), transparent 70%)",
         }}
       />
       <div className="grid-flat absolute inset-0 opacity-20" />
@@ -86,7 +86,7 @@ export default function Pricing() {
                       key={spec}
                       className="flex items-center gap-3 font-light text-mist"
                     >
-                      <span className="h-1 w-1 rotate-45 bg-neon/80 shadow-[0_0_6px_rgba(0,229,255,0.8)]" />
+                      <span className="h-1 w-1 rotate-45 bg-neon/80 shadow-[0_0_6px_rgba(31,120,255,0.8)]" />
                       {spec}
                     </li>
                   ))}

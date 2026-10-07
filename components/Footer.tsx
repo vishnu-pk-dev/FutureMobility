@@ -55,7 +55,7 @@ export default function Footer() {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            "radial-gradient(80% 70% at 50% 100%, rgba(0,229,255,0.09), transparent 70%)",
+            "radial-gradient(80% 70% at 50% 100%, rgba(31,120,255,0.09), transparent 70%)",
         }}
       />
 
@@ -148,7 +148,7 @@ export default function Footer() {
           </span>
           <div className="flex items-center gap-4">
             <span className="hud-chip text-dim">SYS v9.4</span>
-            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon shadow-[0_0_8px_rgba(0,229,255,0.9)]" />
+            <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-neon shadow-[0_0_8px_rgba(31,120,255,0.9)]" />
           </div>
         </div>
       </div>

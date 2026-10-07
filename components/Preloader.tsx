@@ -88,12 +88,12 @@ export default function Preloader() {
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 70% 50% at 50% 45%, rgba(0,229,255,0.08), transparent 70%)",
+            "radial-gradient(ellipse 70% 50% at 50% 45%, rgba(31,120,255,0.08), transparent 70%)",
         }}
       />
       <div className="relative w-[min(90vw,560px)] px-6">
         <div className="mb-10 flex items-center justify-center gap-3">
-          <span className="h-2.5 w-2.5 rounded-full bg-neon shadow-[0_0_12px_rgba(0,229,255,0.9)] animate-pulse" />
+          <span className="h-2.5 w-2.5 rounded-full bg-neon shadow-[0_0_12px_rgba(31,120,255,0.9)] animate-pulse" />
           <span className="hud-chip text-neon text-glow pl-flicker">
             AXION MOTION SYSTEMS
           </span>
@@ -112,7 +112,7 @@ export default function Preloader() {
         </div>
 
         <div className="relative h-[3px] w-full overflow-hidden bg-line">
-          <div className="pl-bar-fill absolute inset-0 origin-left bg-gradient-to-r from-neon to-neon2 shadow-[0_0_14px_rgba(0,229,255,0.8)]" />
+          <div className="pl-bar-fill absolute inset-0 origin-left bg-gradient-to-r from-neon to-neon2 shadow-[0_0_14px_rgba(31,120,255,0.8)]" />
         </div>
 
         <div className="mt-4 flex items-center justify-between">

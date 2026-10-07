@@ -1,6 +1,7 @@
 import Preloader from "@/components/Preloader";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import ScrollProgress from "@/components/ScrollProgress";
 import Marquee from "@/components/Marquee";
 import Stats from "@/components/Stats";
 import Features from "@/components/Features";
@@ -13,10 +14,11 @@ export default function Page() {
   return (
     <>
       <Preloader />
+      <ScrollProgress />
       <Navbar />
       <main>
         <Hero />
-        <Marquee />
+        {/* <Marquee /> */}
         <Stats />
         <Features />
         <ExplodedView />

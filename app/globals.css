@@ -1,15 +1,15 @@
 @import "tailwindcss";
 
 @theme {
-  --color-void: #04070d;
-  --color-abyss: #070b16;
-  --color-panel: #081120;
-  --color-neon: #00e5ff;
-  --color-neon2: #4cc9ff;
-  --color-ice: #eafcff;
-  --color-mist: #8fc0cf;
-  --color-dim: #55707f;
-  --color-line: #0f2f40;
+  --color-void: #f2f7fe;
+  --color-abyss: #e9f1fc;
+  --color-panel: #ffffff;
+  --color-neon: #1f78ff;
+  --color-neon2: #38acff;
+  --color-ice: #0d1f36;
+  --color-mist: #3d5a7d;
+  --color-dim: #6d84a5;
+  --color-line: #c4d7ee;
 
   --font-display: var(--font-orbitron), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
   --font-body: var(--font-rajdhani), "Segoe UI", ui-sans-serif, system-ui, sans-serif;
@@ -79,28 +79,22 @@
   }
 
   ::selection {
-    background: rgba(0, 229, 255, 0.25);
+    background: rgba(31, 120, 255, 0.22);
     color: #ffffff;
   }
 
   ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 0;
+    height: 0;
+    display: none;
   }
-  ::-webkit-scrollbar-track {
-    background: #04070d;
-  }
-  ::-webkit-scrollbar-thumb {
-    background: linear-gradient(180deg, #0f3f55, #06202c);
-    border: 2px solid #04070d;
-    border-radius: 8px;
-  }
-  ::-webkit-scrollbar-thumb:hover {
-    background: #0e4b66;
+  html {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
   }
 
   :focus-visible {
-    outline: 1px solid rgba(0, 229, 255, 0.7);
+    outline: 1px solid rgba(31, 120, 255, 0.7);
     outline-offset: 3px;
   }
 
@@ -116,30 +110,30 @@
 
   .text-glow {
     text-shadow:
-      0 0 12px rgba(0, 229, 255, 0.75),
-      0 0 42px rgba(0, 229, 255, 0.35);
+      0 0 12px rgba(31, 120, 255, 0.45),
+      0 0 42px rgba(31, 120, 255, 0.22);
   }
 
   .text-glow-soft {
-    text-shadow: 0 0 22px rgba(0, 229, 255, 0.35);
+    text-shadow: 0 0 22px rgba(31, 120, 255, 0.25);
   }
 
   .box-glow {
     box-shadow:
-      0 0 18px rgba(0, 229, 255, 0.28),
-      0 0 60px rgba(0, 229, 255, 0.12);
+      0 0 18px rgba(31, 120, 255, 0.25),
+      0 0 60px rgba(31, 120, 255, 0.12);
   }
 
   .box-glow-strong {
     box-shadow:
-      0 0 22px rgba(0, 229, 255, 0.45),
-      0 0 90px rgba(0, 229, 255, 0.2);
+      0 0 22px rgba(31, 120, 255, 0.35),
+      0 0 90px rgba(31, 120, 255, 0.18);
   }
 
   .panel {
-    background: rgba(8, 17, 32, 0.55);
+    background: rgba(255, 255, 255, 0.65);
     backdrop-filter: blur(10px);
-    border: 1px solid rgba(0, 229, 255, 0.16);
+    border: 1px solid rgba(31, 120, 255, 0.2);
   }
 
   .clip-corner {
@@ -157,12 +151,12 @@
     pointer-events: none;
     background: repeating-linear-gradient(
       0deg,
-      rgba(255, 255, 255, 0.025) 0px,
-      rgba(255, 255, 255, 0.025) 1px,
+      rgba(31, 120, 255, 0.045) 0px,
+      rgba(31, 120, 255, 0.045) 1px,
       transparent 1px,
       transparent 3px
     );
-    mix-blend-mode: overlay;
+    mix-blend-mode: multiply;
   }
 
   .noise::before {
@@ -180,7 +174,7 @@
     position: absolute;
     width: 14px;
     height: 14px;
-    border-color: rgba(0, 229, 255, 0.7);
+    border-color: rgba(31, 120, 255, 0.6);
     border-style: solid;
   }
   .corner-tick::before {
@@ -196,16 +190,16 @@
 
   .grid-floor {
     background-image:
-      linear-gradient(to right, rgba(0, 229, 255, 0.16) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 229, 255, 0.16) 1px, transparent 1px);
+      linear-gradient(to right, rgba(31, 120, 255, 0.28) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(31, 120, 255, 0.28) 1px, transparent 1px);
     background-size: 46px 46px;
     animation: grid-pan 1.6s linear infinite;
   }
 
   .grid-flat {
     background-image:
-      linear-gradient(to right, rgba(0, 229, 255, 0.07) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(0, 229, 255, 0.07) 1px, transparent 1px);
+      linear-gradient(to right, rgba(31, 120, 255, 0.14) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(31, 120, 255, 0.14) 1px, transparent 1px);
     background-size: 46px 46px;
   }
 
@@ -230,7 +224,7 @@
     background: radial-gradient(
       ellipse at center,
       transparent 42%,
-      rgba(2, 5, 10, 0.72) 100%
+      rgba(120, 160, 210, 0.18) 100%
     );
   }
 }
