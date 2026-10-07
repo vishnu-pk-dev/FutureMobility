@@ -15,9 +15,8 @@ function ArtFallback({ index, hint }: { index: number; hint: string }) {
       <div
         className="absolute inset-0"
         style={{
-          background: `radial-gradient(60% 60% at ${60 + index * 6}% ${
-            30 + index * 8
-          }%, rgba(31,120,255,${0.05 + index * 0.012}), transparent 70%)`,
+          background: `radial-gradient(60% 60% at ${60 + index * 6}% ${30 + index * 8
+            }%, rgba(31,120,255,${0.05 + index * 0.012}), transparent 70%)`,
         }}
       />
       {index === 0 ? (
@@ -197,7 +196,7 @@ export default function Gallery() {
                 <span className="text-dim">SECTION</span> 06 — THE GALLERY
               </p>
               <h2 className="font-display text-3xl font-black leading-tight text-ice md:text-5xl">
-                KEEP <span className="text-neon text-glow">SCROLLING</span>
+                HYPERDRIVE <span className="text-neon text-glow">VISUALS</span>
               </h2>
             </div>
             <p className="hidden hud-chip text-dim md:block">
